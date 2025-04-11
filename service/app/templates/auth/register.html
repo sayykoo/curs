@@ -1,0 +1,22 @@
+{% load static %}
+
+{% include "app/header.html" %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/auth.css' %}">
+
+{% block content %}
+<main>
+    <div class="auth__form">
+        <h2>Регистрация</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a></p>
+    </div>
+
+</main>
+
+{% endblock %}

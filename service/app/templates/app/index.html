@@ -1,0 +1,224 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    {% include "app/header.html" %}
+
+    <main>
+        <section>
+            <div class="block">
+                <div class="upper_block">
+                    <div class="text_block">
+                        <h1>Автосервис в Вашем городе</h1>
+                        <p>
+                            Мы надежный автосервис, который
+                            ищет индивидуальный подход к каждому клиенту
+                        </p>
+                    </div>
+                    <div class="form_block">
+                        <p>Запишитесь на бесплатный осмотр подвески прямо сейчас</p>
+                        <form action="{% url 'submit_form' %}" method="post">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="Ваше имя" required
+                                       value="{{ form.name.value|default_if_none:'' }}">
+                                {{ form.name.errors }}
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="tel" name="phone" class="form-control" placeholder="Контактный номер телефона" required
+                                       value="{{ form.phone.value|default_if_none:'' }}">
+                                {{ form.phone.errors }}
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" name="car_brand" class="form-control" placeholder="Марка автомобиля" required
+                                       value="{{ form.car_brand.value|default_if_none:'' }}">
+                                {{ form.car_brand.errors }}
+                            </div>
+                            
+                            <button type="submit" {% if not user.is_authenticated %}disabled title="Для записи необходимо авторизоваться"{% endif %}>
+                                Оставить заявку
+                            </button>
+                            
+                            {% if not user.is_authenticated %}
+                                <p class="auth-warning">
+                                    Для записи необходимо <a href="{% url 'login' %}?next={{ request.path }}">авторизоваться</a>
+                                </p>
+                            {% endif %}
+                        </form>
+                        <strong>Акция действует до 12.06.2025</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="about_block">
+                <div class="about_us">
+                    <strong>О компании</strong>
+                    <h1>Честный ремонт автомобилей</h1>
+                    <p>
+                        Диагностика, техобслуживание, шиномонтаж, кузовной и малярный ремонт любой сложности.
+                        <br> <br>
+                        Быстро, насколько это возможно. Профессионально и аккуратно.
+                        Без обмана и непредвиденных трат. С максимальным вниманием к вашей проблеме.
+                    </p>
+                    <a href="">Подробнее</a>
+                </div>
+
+                <div class="image_block">
+                    <img class="rectangle_image_1" src="{% static 'app/media/products/Rectangle1.png' %}" alt="image1">
+                    <img class="rectangle_image_2" src="{% static 'app/media/products/Rectangle2.png' %}" alt="image2">
+                </div>
+            </div>
+        </section>
+
+        <section class="services_section">
+            <div class="services_block">
+                <div class="services_title">
+                    <h1>Ремонтируем всё</h1>
+                    <p>Наши возможности и габариты позволяют ремонтировать даже броневики.</p>
+                </div>
+                <div class="services_list">
+                    <div class="service_item">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <img src="{% static 'app/media/icons/mark.png' %}" alt="">
+                                    <h2>Ремзона</h2>
+                                    <p>Площадь ремзоны 1000 м2</p>
+                                </li>
+
+                                <li>
+                                    <img src="{% static 'app/media/icons/ware.png' %}" alt="">
+                                    <h2>Склад</h2>
+                                    <p>Собственный склад запчастей</p>
+                                </li>
+
+                                <li>
+                                    <img src="{% static 'app/media/icons/posts.png' %}" style="width: 33px;" alt="">
+                                    <h2>10 постов</h2>
+                                    <p>10 ремонтных постов</p>
+                                </li>
+
+                                <li>
+                                    <img src="{% static 'app/media/icons/wheel.png'%}" alt="">
+                                    <h2>Развал-схождение</h2>
+                                    <p>4-х стоечный подъёмник для развал-схождения 
+                                        и подъёма крупных автомобилей</p>
+                                </li>
+
+                                <li>
+                                    <img src="{% static 'app/media/icons/wrench.png' %}" style="width: 30; height: 40px;" alt="">
+                                    <h2>4 цеха</h2>
+                                    <p>4 цеха: слесарный, кузовной, малярный и арматурный</p>
+                                </li>
+
+                                <li>
+                                    <img src="{% static 'app/media/icons/man.png' %}" style="width: 40; height: 40px;" alt="">
+                                    <h2>Специалисты</h2>
+                                    <p>18 специалистов с профильной высокой квалификации</p>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="services_information">
+                <img src="{% static 'app/media/products/recc.png' %}" style="width: 64px; height: 48px;" alt="Image">
+                <h1>Наш сертифицированный автосервис предоставляет гарантию на 1 год.</h1>
+                <p>— Иван Иванов, директор</p>
+            </div>
+        </section>
+
+        <section id="section5">
+            <div class="services_background">
+                <div class="services_price">
+                    <h1>Наши услуги</h1>
+                    <p>Консультация входит в стоимость</p>
+                    <ol>
+                        <li class="item">Кузовной ремонт<p class="price">от 1000 ₽</p></li>
+    
+                        <span></span>
+    
+                        <li class="item">Малярные работы<p class="price">от 4000 ₽</p></li>
+    
+                        <span></span>
+    
+                        <li class="item">Слесарные работы<p class="price">от 500 ₽</p></li>
+    
+                        <span></span>
+    
+                        <li class="item">Техобслуживание<p class="price">от 300 ₽</p></li>
+    
+                        <span></span>
+    
+                        <li class="item">Автоэлектрика<p class="price">от 750 ₽</p></li>
+    
+                        <span></span>
+    
+                        <li class="item">Диагностика<p class="price">от 450 ₽</p></li>
+                    </ol>
+    
+                    <small>Оставляя заявку, вы соглашаетесь на обработку 
+                        персональных данныхыи с условиями бронирования счёта</small>
+                </div> 
+            </div>
+        </section>
+
+        <section id="section5">
+            <div class="team">
+                <span>Команда</span>
+                <h1>Кто мы?</h1>
+                <p>
+                    Наша команда собрана исключительно из 
+                    профессионалов своего дела, которые работаю на ваше благо
+                </p>
+                <div class="team_members">
+                    <div class="team_member">
+                        <img src="{% static 'app/media/team/Ellipse 11.png' %}" alt="team_member1">
+                        <p>Имя фамилия</p>
+                        <strong>Кузовной ремонт</strong>
+                    </div>
+
+                    <div class="team_member">
+                        <img src="{% static 'app/media/team/engine.png' %}" alt="team_member2">
+                        <p>Имя фамилия</p>
+                        <strong>Слесарные работы</strong>
+                    </div>
+
+                    <div class="team_member">
+                        <img src="{% static 'app/media/team/hanger.png' %}" alt="team_member3">
+                        <p>Имя фамилия</p>
+                        <strong>Ремонт подвески</strong>
+                    </div>
+
+                    <div class="team_member">
+                        <img src="{% static 'app/media/team/admin.png' %}" alt="team_member4">
+                        <p>Имя фамилия</p>
+                        <strong>Администратор</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include "app/footer.html" %}
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'app/css/footer.css' %}">
+
+<footer>
+    <div class="footer">
+        <div class="footer__head">
+            <h1>
+                Проблема с автомобилем? Мы поможем!
+            </h1>
+            <form action="" method="post">
+                <input type="tel" placeholder="+7 (000) 000-0000">
+                <button type="submit">Связаться с нами</button>
+            </form>
+            <small>
+                Оставляя заявку, вы соглашаетесь на 
+                обработку персональных данных и с условиями бронирования счёта
+            </small>
+        </div>
+
+        <div class="footer__down">
+            <div class="copyright">
+                <p>Copyright 2025. Quick repairs</p>
+            </div>
+
+            <div class="footer_nav">
+                <ol>
+                    <li class="site_nav"><a href="">О компании</a></li>
+                    <li class="site_nav"><a href="">Новости</a></li>
+                    <li class="site_nav"><a href="">Цены</a></li>
+                    <li class="site_nav"><a href="">Контакты</a></li>
+                </ol>
+            </div>
+
+            <div class="contacts">
+                <p>+7 983 452 25-09</p>
+                <p>quickrepairs@example.com</p>
+            </div>
+
+            <div class="footer_link">
+                <nav>
+                    <ol>
+                        <li class="link"><a href=""><img src="{% static 'app/media/icons/vk.png' %}" alt="vk"></a></li>
+                        <li class="link"><a href=""><img src="{% static 'app/media/icons/inst.png' %}" alt="instagram"></a></li>
+                        <li class="link"><a href=""><img src="{% static 'app/media/icons/youtube.png' %}" alt="youtube"></a></li>
+                        <li class="link"><a href=""><img src="{% static 'app/media/icons/tg.png' %}" alt="telegram"></a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>

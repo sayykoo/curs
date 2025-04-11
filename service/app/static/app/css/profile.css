@@ -1,0 +1,31 @@
+main{
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0 0 0;
+
+    h1{
+        font-size: 28px;
+    }
+
+
+    .profile__content{
+        padding-top: 100px;
+        .avatar{
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            border: 2px dotted black;
+    
+            img{
+                width: 200px;
+                height: 200px;
+            }
+        }
+    }
+    
+}

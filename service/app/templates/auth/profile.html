@@ -1,3 +1,22 @@
 {% load static %}
 
 {% include "app/header.html" %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/profile.css' %}">
+
+<main>
+    <h1>Добро пожаловать, {{ user.username }}</h1>
+    <div class="profile__content">
+        {% if profile.avatar %}
+        <div class="avatar">
+            <img src="{{ user.avatar.url }}" alt="">
+        </div>
+        {% else %}
+        <div class="avatar">
+            <p>Нет аватара</p>
+        </div>
+        {% endif %}
+    </div>
+
+</main>

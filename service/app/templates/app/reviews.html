@@ -1,0 +1,93 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/reviews.css' %}">
+
+{% include "app/header.html" %}
+
+<body>
+    <main>
+        <div class="reviews-container">
+            <h1>Отзывы наших клиентов</h1>
+
+            <div class="reviews-list">
+                {% for review in users_reviews %}
+                    {% if review.is_published %}
+                        <div class="review-item">
+                            <div class="user-info">
+                                {% if review.user.avatar %}
+                                    <img src="{{ review.user.avatar.url }}" alt="{{ review.user.username }}" class="avatar">
+                                {% else %}
+                                    <img src="{% static 'app/images/default-avatar.png' %}" alt="Default avatar" class="avatar">
+                                {% endif %}
+                            </div>
+                            <div class="review-main">
+                                <div class="review-header">
+                                    <div class="user-name">
+                                        <p>{{review.user.username}}</p> 
+                                    </div>
+                                    <div class="review-meta">
+                                        <div class="review-date">
+                                            {{ review.created_at|date:"d.m.Y H:i" }}
+                                        </div>
+                                        <div class="review-rating">
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    <span class="star filled">★</span>
+                                                {% else %}
+                                                    <span class="star">☆</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="review-text">
+                                        {{ review.text }}
+                                    </div>
+                                </div>
+
+                                {% if user.is_staff %}
+                                    <div class="admin-actions">
+                                        <a href="{% url 'toggle_review' review.id %}" class="btn-toggle">
+                                            {% if review.is_published %} <span class="minus"></span> {% else %}Опубликовать{% endif %}
+                                        </a>
+                                        <a href="{% url 'delete_review' review.id %}" class="btn-delete">
+                                            <span></span><span></span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <p class="no-reviews">Пока нет отзывов. Будьте первым!</p>
+                {% endfor %}
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="add-review-form">
+                    <h2>Оставить отзыв</h2>
+                    <form method="post" action="{% url 'add_review' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="text">Ваш отзыв:</label>
+                            <textarea name="text" id="text" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Оценка:</label>
+                            <select name="rating" id="rating" required>
+                                <option value="5">Отлично (5)</option>
+                                <option value="4">Хорошо (4)</option>
+                                <option value="3">Удовлетворительно (3)</option>
+                                <option value="2">Плохо (2)</option>
+                                <option value="1">Ужасно (1)</option>
+                            </select>
+                        </div>
+                        <button type="submit">Отправить отзыв</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    {% include "app/footer.html" %}
+</body>

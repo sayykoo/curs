@@ -5,13 +5,25 @@ main{
     gap: 30px;
     margin: 0 auto;
     max-width: 40%;
-    padding: 3% 0 0 0;
+
+    .form-group{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        input{
+            height: 40px;
+            padding: 10px;
+            border: none;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+    }
 
     .auth__form{
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding: 150px;
+        padding: 50px 100px 0 100px;
         border-radius: 10px;
         p{
             display: flex;
@@ -73,4 +85,8 @@ main{
 
 ul{
     display: none;
+}
+
+#id_avatar{
+    border: none;
 }

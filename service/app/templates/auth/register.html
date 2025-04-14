@@ -9,11 +9,26 @@
 <main>
     <div class="auth__form">
         <h2>Регистрация</h2>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                <div class="text-danger">
+                    {% for error in field.errors %}
+                    <small>{{ error }}</small><br>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
             <button type="submit">Зарегистрироваться</button>
         </form>
+        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-google">
+            Войти через Google
+        </a>
         <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a></p>
     </div>
 

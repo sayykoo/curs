@@ -1,0 +1,209 @@
+h1{
+    font-family: Stem-Medium;
+}
+
+.reviews-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: 100px 0 100px 0;
+
+    h1{
+        color: #118AB2;
+    }
+}
+
+.add-review-form{
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        button{
+            border: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            color: white;
+            background-color: #EF476F;
+            height: 40px;
+        }
+
+        .form-group{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            label{
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    gap: 50px;
+}
+
+.review-rating{
+    span{
+        font-size: 26px;
+    }
+}
+
+.star{
+    color: #EF476F;
+}
+
+.reviews-container{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.review-item {
+    position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 35px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.review-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user-name{
+    p{
+        font-size: 18px;
+        font-family: Stem-Medium;      
+    }
+}
+
+.review-text {
+    font-size: 18px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+    width: 60%;
+}
+
+.user-info{
+    img{
+        width: 120px;
+        border-radius: 100%;
+        object-fit: cover;
+        height: 120px;
+    }
+}
+
+.review-date{
+    font-size: 14px;
+    color: rgb(175, 175, 175);
+}
+
+.minus{
+    display: inline-block;
+    width: 15px;
+    height: 2px;
+    background-color: black;
+}
+
+.add{
+    display: inline-block;
+    width: 15px;
+    height: 2px;
+    background-color: black;
+}
+
+.btn-toggle{
+    height: 20px;
+}
+
+.btn-delete{
+    span{
+        position: absolute;
+        display: inline-block;
+        height: 2px;
+        width: 15px;
+        background-color: black;
+    }
+    span:nth-child(1){
+        transform: rotate(45deg);
+    }
+    span:nth-child(2){
+        transform: rotate(-45deg);
+    }
+
+}
+
+.btn-delete:hover{
+    filter: invert(50%);
+}
+
+.admin-actions{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    a{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.review-main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.add-review-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    form{
+        .form-group{
+            width: 500px;
+
+            textarea{
+                width: 500px;
+            }
+
+            label{
+                opacity: 0.8;
+            }
+
+            select{
+                height: 40px;
+            }
+        }
+
+        button{
+            font-size: 16px;
+            font-family: Stem-Regular;
+        }
+
+        button:hover{
+            background-color: #b03451;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+    }
+}

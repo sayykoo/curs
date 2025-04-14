@@ -4,27 +4,37 @@
 
 <header>
     <div class="logotype">
-        <img src="logo.png" alt="Logo">
+        <a href="{% url 'index' %}">
+            <img src="logo.png" alt="Logo">
+        </a>
     </div>
     <div class="header__items">
         <nav>
             <ul>
                 <li><a href="/">О компании</a></li>
                 <li><a href="/news/">Новости</a></li>
-                <li><a href="#section5">Цены</a></li>
-                <li><a href="/reviews/">Отзывы</a></li>
+                <li><a href="{% url 'index' %}#section5">Цены</a></li>
+                <li><a href="{% url 'reviews' %}">Отзывы</a></li>
                 <li><a href="/contact/">Контакты</a></li>
             </ul>
         </nav>
         {% if user.is_authenticated %}
         <div class="personal__page">
             <a href="{% url 'profile' %}">
-                <img src="{% static 'app/media/icons/user.png' %}" title="Личный кабинет" style="width: 45px;" alt="User">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" title="Личный кабинет" style="width: 45px;" alt="404">
+                {% endif %}
+                
+                <div class="personal__page_names">
+                    <p>{{ user.username }}</p>
+                    <p>{{ user.phone_number }}</p>
+                </div>  
             </a>
+            <span></span>
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" title="Выход" style="border: none; background-color: transparent;">
-                    <img src="{% static 'app/media/icons/logout.png' %}" style="width: 30px;" alt="">
+                    <img src="{% static 'app/media/icons/logout.png' %}" style="width: 35px;" alt="">
                 </button>
             </form>
         </div>
@@ -36,3 +46,4 @@
     </div>
 
 </header>
+

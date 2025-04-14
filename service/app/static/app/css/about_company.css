@@ -1,0 +1,73 @@
+* {
+    font-family: Stem-Regular;
+    p {
+        font-size: 18px;
+    }
+
+    h1 {
+        font-size: 42px;
+
+    }
+
+    h2 {
+        font-size: 28px;
+        font-family: Stem-Medium;
+    }
+}
+
+main {
+    margin: 100px 0 200px 0;
+}
+
+.about__company_section {
+    display: flex;
+    flex-direction: column;
+    gap: 200px;
+
+    .about__company_items {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 50px;
+
+        .about__company_list_item {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .about__company_item{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+
+                p{
+                    font-family: Stem-Regular;
+                }
+                img{
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    .information {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    strong {
+        color: #118AB2;
+        font-size: 20px;
+    }
+
+
+    h1 {
+        font-family: Stem-Medium;
+    }
+}

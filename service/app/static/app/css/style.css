@@ -35,15 +35,18 @@ li {
     list-style: none;
 }
 
+html,
+body{
+    height: 100vh;
+    
+}
+
 br {
     margin: 0 20px;
     padding: 20px;
 }
 
 main {
-    width: 100%;
-    height: auto;
-
     .block::before {
         content: '';
         position: absolute;
@@ -161,6 +164,9 @@ main {
         margin: 0 auto;
         padding: 100px 0 100px 0;
         height: auto;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 40px auto;
 
         .image_block {
             width: 20%;
@@ -495,26 +501,21 @@ main {
     }
 }
 
-.personal__page {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
+.about__company_section{
+    width: 70%;
+    margin: 0 auto;
+}
 
-    a:hover {
-        filter: invert(40%);
-    }
-
-    form{
-        button{
-            img{
-                opacity: 0.8;
-            }
-        }
-
-        button:hover{
-            cursor: pointer;
-            filter: invert(40%);
-        }
+.form-group{
+    textarea{
+        width: 350px;
+        padding: 10px;
+        font-family: Stem-Medium;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 16px;
+        height: 120px;
     }
 }
+
+

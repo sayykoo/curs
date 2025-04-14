@@ -1,0 +1,58 @@
+{% load static %}
+
+{% include "app/header.html" %}
+
+<link rel="stylesheet" href="{% static 'app/css/footer.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/about_company.css' %}">
+
+<main>
+
+    <body>
+        <section>
+            <div class="about__company_section">
+                <div class="information">
+                    <strong>О компании</strong>
+                    <h1>Кто мы?</h1>
+                    <p>
+                        Автосервис «...» осуществляет разнообразные виды работ в строгом соответствии
+                        с рекомендациями производителей на современном оборудовании. <br>
+                        <br>
+                        Ремонт автомобилей в автосервисе производят квалифицированные
+                        специалисты, что обеспечивает высокое качество выполненных работ.
+                        Профессионалы, обладающие знаниями и специальной подготовкой,
+                        подтвержденной сертификатами, осуществляют сервисные работы, ремонт
+                        и замену запасных деталей, диагностику и техническое обслуживание автомобилей
+                        любых марок. Компания постоянно совершенствует производственный процесс, чтобы
+                        сократить время ремонта и техобслуживания. <br>
+                        <br>
+                        Автосервис «...» предоставляет владельцам автомобилей все виды услуг в г.
+                        Ижевск. Для удобства клиентов заявку на проведение ТО или ремонт можно сделать
+                        на сайте компании, что исключит трату времени на ожидание в очереди. Полный перечень
+                        производимых услуг, их стоимость, предоставлен на нашем сайте.
+                    </p>
+                </div>
+
+                <div class="about__company_items">
+                    <h2>Наше оборудование</h2>
+                    <div class="about__company_list_item">
+                        <div class="about__company_item">
+                            <img src="{% static 'app/media/products/press.png' %}" alt="">
+                            <p>Гидравлический пресс</p>
+                        </div>
+                        <div class="about__company_item">
+                            <img src="{% static 'app/media/products/pod.jpg' %}" alt="">
+                            <p>Подъемник</p>
+                        </div>
+                        <div class="about__company_item">
+                            <img src="{% static 'app/media/products/wheel.jpg' %}" alt="">
+                            <p>Шиномонтажный стенд</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</main>
+
+{% include "app/footer.html" %}

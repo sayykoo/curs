@@ -1,28 +1,47 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CarServiceForm, LoginForm, SignUpForm
-from .models import CarServiceRequest, CustomUser
+from .forms import CarServiceForm, LoginForm, SignUpForm, ReviewForm
+from .models import CarServiceRequest, CustomUser, UserProfile, UserReviews
 from django.contrib.auth import login, authenticate
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     return render(request, 'app/index.html')
 
-class Login(LoginView):
-    template_name = 'accounts/login.html' 
+
+
+def about_company(request):
+    return render(request, 'app/about_company.html')
+
+
 
 def signup_view(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        logger.info(f"Получены данные формы: {request.POST}")
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('index')
+            try:
+                user = form.save()
+                logger.info(f"Создан пользователь: {user.username}")
+                login(request, user)
+                return redirect('index')
+            except Exception as e:
+                logger.error(f"Ошибка при создании пользователя: {e}")
+        else:
+            logger.error(request, 'Пожалуйста, исправьте ошибки в форме')
     else:
         form = SignUpForm()
+    
     return render(request, 'auth/register.html', {'form': form})
+
+
 
 def login_view(request):
     form = LoginForm(data=request.POST or None)
@@ -33,11 +52,58 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('index')
     return render(request, 'auth/login.html', {'form': form})
 
+
+
+def reviews(request): #отображение отзывов
+    users_reviews = UserReviews.objects.filter(is_published=True).order_by('-created_at')
+    
+    if request.user.is_staff:
+        users_reviews = UserReviews.objects.all().order_by('-created_at')
+    
+    context = {
+        'users_reviews': users_reviews
+    }
+    return render(request, 'app/reviews.html', context)
+
+
+
 @login_required
-def submit_form(request):
+def add_review(request): #добавление отзыва
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.save()
+            return redirect('reviews')
+    else:
+        form = ReviewForm()
+    return render(request, 'app/add_review.html', {'form': form})
+
+
+
+@staff_member_required
+def toggle_review(request, review_id): 
+    review = UserReviews.objects.get(id=review_id)
+    review.is_published = not review.is_published
+    review.save()
+    return redirect('reviews')
+
+
+
+@staff_member_required
+def delete_review(request, review_id): #удаление отзыва
+    review = UserReviews.objects.get(id=review_id)
+    review.delete()
+    return redirect('reviews')
+
+
+
+@login_required
+def help_submit(request): #заявка помощи
     if request.method == 'POST':
         form = CarServiceForm(request.POST)
         if form.is_valid():
@@ -46,21 +112,45 @@ def submit_form(request):
                 instance.user = request.user
             instance.save()
             messages.success(request, 'Ваша заявка успешно отправлена!')
+            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+    else:
+        form = CarServiceForm()
+
+
+
+@login_required 
+def submit_form(request): #форма отправки заявки
+    if request.method == 'POST':
+        form = CarServiceForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            messages.success(request, '✅ Ваша заявка успешно отправлена!')
             return redirect('index')
+        else:
+            messages.error(request, '❌ Пожалуйста, исправьте ошибки в форме.')
     else:
         form = CarServiceForm()
     
-    return render(request, 'app/templates/entry_form.html', {'form': form})
+    return redirect('index')
+
+
 
 @login_required
-def profile(request):
-    profile = request.user.userprofile
-    user_requests = CarServiceRequest.objects.filter(user=request.user).select_related('user')
-    profile, created = CustomUser.objects.get_or_create(user=request.user)
+def profile_view(request):
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
 
+    if request.user.is_staff:
+        service_requests = CarServiceRequest.objects.all().order_by('-created_at')
+    else:
+        service_requests = CarServiceRequest.objects.filter(user=request.user).order_by('-created_at')
+    
     context = {
         'profile': profile,
-        'user_requests': request.user,
+        'user': request.user,
+        'service_requests': service_requests
     }
     return render(request, 'auth/profile.html', context)
+
 

@@ -1,23 +1,85 @@
 from django import forms
-from .models import CarServiceRequest, CustomUser
+from .models import CarServiceRequest, CustomUser, UserReviews
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = UserReviews
+        fields = ['text', 'rating']
+        widgets = {
+            'text': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Напишите ваш отзыв здесь...'
+            }),
+            'rating': forms.Select(choices=[(i, str(i)) for i in range(1, 6)])
+        }
+
+
 
 class CarServiceForm(forms.ModelForm):
     class Meta:
         model = CarServiceRequest
-        fields = ['name', 'phone', 'car_brand']
+        fields = ['name', 'phone', 'car_brand', 'problem_description']
+
+
 
 class SignUpForm(UserCreationForm):
-    # name = forms.EmailField(max_length=30, help_text='Обязательное поле. Введите ваше имя.')
-
+    phone_number = forms.CharField(
+        max_length=15,
+        required=False,
+        label='Телефон',
+        widget=forms.TextInput(attrs={
+            'placeholder': '+7 (XXX) XXX-XX-XX',
+            'class': 'form-control'
+        })
+    )
+    
+    avatar = forms.ImageField(
+        required=False,
+        label='Аватар',
+        widget=forms.FileInput(attrs={
+            'class': 'form-control-file',
+            'accept': 'image/*'
+        })
+    )
+    
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'phone_number', 'password1', 'password2', 'avatar')
+        labels = {
+            'username': 'Имя пользователя',
+            'email': 'Email',
+            'password1': 'Пароль',
+            'password2': 'Подтверждение пароля'
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = None
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None
+        self.fields['email'].required = True
+    
+    def clean_password1(self):
+        password1 = self.cleaned_data.get('password1')
+        try:
+            validate_password(password1, self.instance)
+        except ValidationError as error:
+            self.add_error('password1', error)
+        return password1
 
+
+
+    
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Имя пользователя')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+
+
+    
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:

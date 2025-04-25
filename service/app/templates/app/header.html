@@ -11,8 +11,8 @@
     <div class="header__items">
         <nav>
             <ul>
-                <li><a href="/">О компании</a></li>
-                <li><a href="/news/">Новости</a></li>
+                <li><a href="{% url 'about' %}">О компании</a></li>
+                <li><a href="{% url 'news_page' %}">Новости</a></li>
                 <li><a href="{% url 'index' %}#section5">Цены</a></li>
                 <li><a href="{% url 'reviews' %}">Отзывы</a></li>
                 <li><a href="/contact/">Контакты</a></li>

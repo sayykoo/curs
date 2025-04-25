@@ -1,0 +1,48 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/news_style.css' %}">
+
+{% include "app/header.html" %}
+
+<main>
+    <div class="wrapper_news">
+        <div class="news_head">
+            <h1>Актуальные новости</h1>
+        </div>
+        <div class="news_body">
+            {% for post in posts %}
+            <article class="news_post">
+
+                <div class="post_head">
+                    <img src="{{ post.image.url }}" alt="Post">
+                </div>
+
+                <div class="post_body">
+                    <div class="post_text">
+                        <h2>{{ post.title }}</h2>
+                        <p>{{ post.content }}</p>
+                    </div>
+
+                    <div class="post_time">
+                        <time datetime="{{ post.created_at }}">{{ post.created_at|date:"d.m.Y H:i" }}</time>
+                    </div>
+
+                    {% if user.is_staff %}
+                    <div class="delete_post">
+                        <form action="{% url 'delete_news' post.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" style="border: none; background-color: transparent;">
+                                <img src="{% static 'app/media/icons/cross.png' %}" alt="">
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% include "app/footer.html" %}

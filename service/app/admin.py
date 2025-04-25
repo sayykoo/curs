@@ -1,8 +1,15 @@
 from django.contrib import admin
-from .models import CarServiceRequest, CustomUser, UserReviews
+from .models import CarServiceRequest, CustomUser, UserReviews, News, TeamMembers
 from django.contrib.auth.admin import UserAdmin
 from .forms import SignUpForm
 from django.utils.html import format_html
+
+class CarServiceRequestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'car_brand', 'problem_description', 'created_at', 'service_date', 'status')
+    list_filter = ('status', 'service_date')
+    search_fields = ('car_brand', 'user__username', 'problem_description')
+    ordering = ('status', 'service_date')
+    date_hierarchy = 'service_date' 
 
 class CustomUserAdmin(UserAdmin):
     add_form = SignUpForm
@@ -35,5 +42,8 @@ class CustomUserAdmin(UserAdmin):
     avatar_preview.short_description = 'Preview'
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(CarServiceRequest)
+admin.site.register(CarServiceRequest, CarServiceRequestAdmin)
 admin.site.register(UserReviews)
+admin.site.register(News)
+admin.site.register(TeamMembers)
+

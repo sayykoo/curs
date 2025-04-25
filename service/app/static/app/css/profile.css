@@ -109,3 +109,20 @@ main{
     }
 }
 
+.add_news{
+    text-align: center;
+    color: #118AB2;
+    border: 1px solid #118AB2;
+    border-radius: 5px;
+    padding: 15px 25px;
+    height: auto;
+    scale: 1;
+    transition: all 0.1s;
+}
+
+.add_news:hover{
+    color: #0c6684;
+    border-color: #0c6684;
+    scale: 1.05;
+    transition: all 0.1s;
+}

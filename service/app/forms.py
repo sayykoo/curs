@@ -1,5 +1,5 @@
 from django import forms
-from .models import CarServiceRequest, CustomUser, UserReviews
+from .models import CarServiceRequest, CustomUser, UserReviews, News
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -17,6 +17,34 @@ class ReviewForm(forms.ModelForm):
             'rating': forms.Select(choices=[(i, str(i)) for i in range(1, 6)])
         }
 
+
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = ['title', 'content', 'image', 'is_published']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'is_published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+        labels = {
+            'title': 'Заголовок',
+            'content': 'Текст новости',
+            'image': 'Изображение',
+            'is_published': 'Опубликовать',
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.user:
+            instance.author = self.user
+        if commit:
+            instance.save()
+        return instance
 
 
 class CarServiceForm(forms.ModelForm):

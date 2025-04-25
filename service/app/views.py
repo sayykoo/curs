@@ -4,8 +4,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CarServiceForm, LoginForm, SignUpForm, ReviewForm
-from .models import CarServiceRequest, CustomUser, UserProfile, UserReviews
+from .forms import CarServiceForm, LoginForm, SignUpForm, ReviewForm, NewsForm
+from .models import CarServiceRequest, CustomUser, UserProfile, UserReviews, News, TeamMembers
 from django.contrib.auth import login, authenticate
 import logging
 
@@ -13,14 +13,35 @@ import logging
 logger = logging.getLogger(__name__)
 
 def index(request):
-    return render(request, 'app/index.html')
+    members = TeamMembers.objects.all()
 
+    context = {
+        'members': members
+    }
+
+    return render(request, 'app/index.html', context)
 
 
 def about_company(request):
     return render(request, 'app/about_company.html')
 
 
+def news_page(request):
+    posts = News.objects.all()
+
+    context = {
+        'posts': posts
+    }
+
+    return render(request, 'app/news.html', context)
+
+
+@staff_member_required
+def delete_news(request, news_id):
+    if request.method == 'POST' and request.user.is_staff:
+        news = get_object_or_404(News, id=news_id)
+        news.delete()
+    return redirect('news_page')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -42,7 +63,6 @@ def signup_view(request):
     return render(request, 'auth/register.html', {'form': form})
 
 
-
 def login_view(request):
     form = LoginForm(data=request.POST or None)
     if request.method == 'POST':
@@ -54,8 +74,6 @@ def login_view(request):
                 login(request, user)
                 return redirect('index')
     return render(request, 'auth/login.html', {'form': form})
-
-
 
 def reviews(request): #отображение отзывов
     users_reviews = UserReviews.objects.filter(is_published=True).order_by('-created_at')
@@ -83,6 +101,18 @@ def add_review(request): #добавление отзыва
         form = ReviewForm()
     return render(request, 'app/add_review.html', {'form': form})
 
+
+@staff_member_required
+def add_news(request):
+    if request.method == 'POST':
+        form = NewsForm(request.POST, request.FILES, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('news_page')
+    else:
+        form = NewsForm(user=request.user)
+    
+    return render(request, 'app/new_add.html', {'form': form})
 
 
 @staff_member_required

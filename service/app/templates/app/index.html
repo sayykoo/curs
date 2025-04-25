@@ -142,8 +142,9 @@
 
 
                             <div class="form-group">
-                                <textarea name="problem_description" class="form-control" placeholder="Описание проблемы" id=""
-                                required value="{{ form.problem_description.value|default_if_none:'' }}"></textarea>
+                                <textarea name="problem_description" class="form-control"
+                                    placeholder="Описание проблемы" id="" required
+                                    value="{{ form.problem_description.value|default_if_none:'' }}"></textarea>
                                 {{ form.car_brand.errors }}
                             </div>
 
@@ -282,7 +283,10 @@
 
                         <li class="item">Диагностика<p class="price">от 450 ₽</p>
                         </li>
+
                     </ol>
+
+                    <a href="">Подробнее</a>
 
                     <small>Оставляя заявку, вы соглашаетесь на обработку
                         персональных данныхыи с условиями бронирования счёта</small>
@@ -299,29 +303,13 @@
                     профессионалов своего дела, которые работаю на ваше благо
                 </p>
                 <div class="team_members">
+                    {% for member in members %}
                     <div class="team_member">
-                        <img src="{% static 'app/media/team/Ellipse 11.png' %}" alt="team_member1">
-                        <p>Имя фамилия</p>
-                        <strong>Кузовной ремонт</strong>
+                        <img src="{{ member.image.url }}" alt="team_member">
+                        <p>{{ member.name }}</p>
+                        <strong>{{ member.type }}</strong>
                     </div>
-
-                    <div class="team_member">
-                        <img src="{% static 'app/media/team/engine.png' %}" alt="team_member2">
-                        <p>Имя фамилия</p>
-                        <strong>Слесарные работы</strong>
-                    </div>
-
-                    <div class="team_member">
-                        <img src="{% static 'app/media/team/hanger.png' %}" alt="team_member3">
-                        <p>Имя фамилия</p>
-                        <strong>Ремонт подвески</strong>
-                    </div>
-
-                    <div class="team_member">
-                        <img src="{% static 'app/media/team/admin.png' %}" alt="team_member4">
-                        <p>Имя фамилия</p>
-                        <strong>Администратор</strong>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

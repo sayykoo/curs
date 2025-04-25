@@ -30,6 +30,10 @@
                     <label>Телефон: </label>
                     <p>{{ user.phone_number }}</p>
                 </div>
+
+                {% if user.is_staff %}
+                    <a class="add_news" href="{% url 'add_news' %}">Добавить запись</a>
+                {% endif %}
             </div>
 
             <div class="profile__info_records">

@@ -43,6 +43,19 @@ def delete_news(request, news_id):
         news.delete()
     return redirect('news_page')
 
+
+@staff_member_required
+def update_news(request, news_id):
+    news = get_object_or_404(News, id=news_id)
+    if request.method == 'POST':
+        form = NewsForm(request.POST, request.FILES, instance=news)
+        if form.is_valid():
+            form.save()
+            return redirect('news_page')
+    else:
+        form = NewsForm(instance=news)
+    return render(request, 'app/edit_news.html', {'form': form, 'news': news})
+
 def signup_view(request):
     if request.method == 'POST':
         logger.info(f"Получены данные формы: {request.POST}")
@@ -62,6 +75,9 @@ def signup_view(request):
     
     return render(request, 'auth/register.html', {'form': form})
 
+
+def contacts_page(request):
+    return render(request, 'app/contacts_page.html')
 
 def login_view(request):
     form = LoginForm(data=request.POST or None)

@@ -13,14 +13,32 @@
         <div class="news_body">
             {% for post in posts %}
             <article class="news_post">
+                {% if user.is_staff %}
+                <div class="edit_post">
+                    <a href="{% url 'update_news' post.id %}" title="Редактировать новость"
+                        aria-label="Редактировать новость">
+                        <img style="width: 20px; height: 20px;" src="{% static 'app/media/icons/edit.png' %}"
+                            alt="Редактировать">
+                    </a>
+                    <br>
+                    <form action="{% url 'delete_news' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="border: none; background-color: transparent;"
+                            title="Удалить новость" aria-label="Удалить новость">
+                            <img src="{% static 'app/media/icons/cross.png' %}" alt="">
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
 
                 <div class="post_head">
+                    <h2>{{ post.title }}</h2>
                     <img src="{{ post.image.url }}" alt="Post">
                 </div>
 
                 <div class="post_body">
                     <div class="post_text">
-                        <h2>{{ post.title }}</h2>
+
                         <p>{{ post.content }}</p>
                     </div>
 
@@ -28,16 +46,7 @@
                         <time datetime="{{ post.created_at }}">{{ post.created_at|date:"d.m.Y H:i" }}</time>
                     </div>
 
-                    {% if user.is_staff %}
-                    <div class="delete_post">
-                        <form action="{% url 'delete_news' post.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" style="border: none; background-color: transparent;">
-                                <img src="{% static 'app/media/icons/cross.png' %}" alt="">
-                            </button>
-                        </form>
-                    </div>
-                    {% endif %}
+
                 </div>
             </article>
             {% endfor %}

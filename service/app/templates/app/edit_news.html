@@ -1,0 +1,34 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/news_style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/header.css' %}">
+
+{% include "app/header.html" %}
+
+<main class="edit_page">
+    <h2>Редактирование новости</h2>
+    <form action="{% url 'update_news' news.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_title">{{ form.title.label }}</label>
+            <input type="text" name="title" value="{{ news.title }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_title">{{ form.content.label }}</label>
+            <textarea name="content">{{ news.content }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="file" name="image">
+            {% if news.image %}
+            <p>Текущее изображение: <a href="{{ news.image.url }}">{{ news.image.name }}</a></p>
+            {% endif %}
+        </div>
+        <button type="submit">Сохранить изменения</button>
+        <a href="{% url 'news_page' %}">Отмена</a>
+    </form>
+</main>
+
+

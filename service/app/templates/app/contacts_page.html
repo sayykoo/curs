@@ -1,0 +1,57 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/header.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/contacts_page.css' %}">
+
+
+{% include "app/header.html" %}
+
+
+<main>
+    <div class="contacts_page__container">
+
+        <div class="connection">
+            <h1>Как с нами связаться?</h1>
+                <ol class="con_items">
+                    <li class="con_item">
+                        <a href="">
+                            <img src="{% static 'app/media/icons/vk.png' %}" alt="">
+                        </a>
+                    </li>
+
+                    <li class="con_item">
+                        <a href="">
+                            <img src="{% static 'app/media/icons/tg.png' %}" alt="">
+                        </a>
+                    </li>
+
+                    <li class="con_item">
+                        <a href="">
+                            <img src="{% static 'app/media/icons/wa.png' %}" alt="">
+                        </a>
+                    </li>
+
+                    <li class="con_item">
+                        <a href="">
+                            <img src="" alt="">
+                        </a>
+                    </li>
+                </ol>
+        </div>
+
+        <div class="location">
+            <h1>Наше местоположение</h1>
+
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4240.389445924271!2d53.20388592904512!3d56.840434925369905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x43e139342b3043c1%3A0xbffaba6a591a2958!2z0YPQuy4g0JzQsNC60YHQuNC80LAg0JPQvtGA0YzQutC-0LPQviwgNDksINCY0LbQtdCy0YHQuiwg0YDQtdGB0L_Rg9Cx0LvQuNC60LAg0KPQtNC80YPRgNGC0LjRjywgNDI2MDA4!5e0!3m2!1sru!2sru!4v1745668748235!5m2!1sru!2sru"
+                width="600" height="350" style="border:1px solid black; border-radius: 10px; " allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        
+    </div>
+
+</main>
+
+{% include "app/footer.html" %}

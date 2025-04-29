@@ -18,6 +18,19 @@
     src: url(../fonts/Stem/Stem-Regular.otf);
 }
 
+*::-webkit-scrollbar{
+    width: 10px;
+    background-color: #3c3c3c;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #7c7c7c; /* Цвет бегунка */
+    border-radius: 20px; /* Округление бегунка */
+    border: 1px solid #4b4b4b; /* Оформление границ бегунка */
+}
+
+
+
 html {
     scroll-behavior: smooth;
 }

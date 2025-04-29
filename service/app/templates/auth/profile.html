@@ -32,51 +32,44 @@
                 </div>
 
                 {% if user.is_staff %}
-                    <a class="add_news" href="{% url 'add_news' %}">Добавить запись</a>
+                <a class="add_news" href="{% url 'add_news' %}">Добавить запись</a>
                 {% endif %}
             </div>
 
             <div class="profile__info_records">
                 <p class="records">
                     {% if request.user.is_staff %}
-                        Все записи:
+                    Все записи:
                     {% else %}
-                        Ваши записи:
+                    Ваши записи:
                     {% endif %}
                 </p>
-            
-                {% if service_requests %}
-                    {% for request in service_requests %}       
-                        <div class="profile__info_record">
-                            {% if request.user.is_staff %}
-                                <p>Пользователь: <strong>{{ request.user.username }}</strong></p>
-                            {% endif %}
-                            <p>Дата записи: <strong>{{ request.created_at|date:"d.m.Y" }}</strong></p>
-                            <p>Имя: <strong>{{ request.name }}</strong></p>
-                            <p>Номер телефона: <strong>{{ request.phone }}</strong></p>
-                            <p>Описание проблемы: <strong>{{ request.problem_description }}</strong></p>
-                            
-                            {% if request.user.is_staff %}
-                                <div class="admin-actions">
-                                     <a href="" class="btn-edit">Редактировать</a> 
-                                    <a href="" class="btn-delete">Удалить</a>
-                                </div>
-                            {% endif %}
-                            
-                            </div>
-                            <span></span>
 
-                    {% endfor %}
+                {% if service_requests %}
+                {% for request in service_requests %}
+                <div class="profile__info_record">
+                    {% if request.user.is_staff %}
+                    <p>Пользователь: <strong>{{ request.user.username }}</strong></p>
+                    {% endif %}
+                    <p>Дата записи: <strong>{{ request.created_at|date:"d.m.Y" }}</strong></p>
+                    <p>Имя: <strong>{{ request.name }}</strong></p>
+                    <p>Номер телефона: <strong>{{ request.phone }}</strong></p>
+                    <p>Описание проблемы: <strong>{{ request.problem_description }}</strong></p>
+
+                </div>
+                <span></span>
+
+                {% endfor %}
                 {% else %}
-                    <p>
-                        {% if request.user.is_staff %}
-                            Нет записей в системе.
-                        {% else %}
-                            У вас пока нет записей.
-                        {% endif %}
-                    </p>
-                    <br>
-                    <a href="{% url 'index' %}" style="color: #118AB2;">Записаться</a>
+                <p>
+                    {% if request.user.is_staff %}
+                    Нет записей в системе.
+                    {% else %}
+                    У вас пока нет записей.
+                    {% endif %}
+                </p>
+                <br>
+                <a href="{% url 'index' %}" style="color: #118AB2;">Записаться</a>
                 {% endif %}
             </div>
 

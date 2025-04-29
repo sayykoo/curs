@@ -1,0 +1,31 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/services.css' %}">
+
+<title>{{ title }}</title>
+
+{% include "app/header.html" %}
+
+
+<main>
+    <div class="services_container">
+        <h1>Прайс-лист</h1>
+        <div class="prices">
+            {% for i in price %}
+            <ol class="price-list">
+                <li class="service">
+                    <span class="service-name">{{ i.title }}</span>
+                    <span class="service-price">от {{ i.price }} ₽</span>
+                </li>
+            </ol>
+            {% endfor %}
+        </div>
+
+        <a class="to_form" href="{% url 'index' %}">Оставить заявку</a>
+
+    </div>
+</main>
+
+
+{% include "app/footer.html" %}

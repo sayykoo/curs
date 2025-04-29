@@ -443,7 +443,10 @@ main {
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(../media/products/background2.jpg);
-    z-index: 0;
+
+    background-size: 100% 100%;
+    z-index: 1;
+
 }
 
 .services_background::before {

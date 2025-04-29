@@ -21,4 +21,5 @@ urlpatterns = [
     path('news/<int:news_id>/edit/', views.update_news, name='update_news'),
     path('news/add/', views.add_news, name='add_news'),
     path('contacts/', views.contacts_page, name='contacts'),
+    path('services/', views.services_price, name='services'),
 ]

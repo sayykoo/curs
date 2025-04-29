@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CarServiceForm, LoginForm, SignUpForm, ReviewForm, NewsForm
-from .models import CarServiceRequest, CustomUser, UserProfile, UserReviews, News, TeamMembers
+from .models import CarServiceRequest, CustomUser, UserProfile, UserReviews, News, TeamMembers, ServicesPrice
 from django.contrib.auth import login, authenticate
 import logging
 
@@ -79,6 +79,16 @@ def signup_view(request):
 def contacts_page(request):
     return render(request, 'app/contacts_page.html')
 
+def services_price(request):
+    price = ServicesPrice.objects.all()
+
+    context = {
+        'price': price,
+        'title': 'SpeedyMech'
+    }
+
+    return render(request, 'app/services.html', context)
+
 def login_view(request):
     form = LoginForm(data=request.POST or None)
     if request.method == 'POST':
@@ -90,6 +100,8 @@ def login_view(request):
                 login(request, user)
                 return redirect('index')
     return render(request, 'auth/login.html', {'form': form})
+
+
 
 def reviews(request): #отображение отзывов
     users_reviews = UserReviews.objects.filter(is_published=True).order_by('-created_at')

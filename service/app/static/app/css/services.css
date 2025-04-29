@@ -1,0 +1,65 @@
+.services_container{
+    padding: 50px 0 100px 0;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .to_form{
+        color: #118AB2;
+        padding: 10px 20px;
+        border: 2px solid #118AB2;
+        font-size: 18px;
+        font-family: Stem-Regular;
+        border-radius: 5px;
+        text-align: center;
+        width: 200px;
+        margin: 0 auto;
+        transition: all 0.2s;
+    }
+
+    .to_form:hover{
+        transform: translateY(-20%);
+        background-color: #00bfff1f;
+        color: #0f7597;
+    }
+
+    h1{
+        font-size: 38px;
+        font-family: Stem-Medium;
+    }
+
+    .price-list{
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 25px 0;
+
+        li{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #b8b8b8;
+            transition: all 0.2s;
+
+            span{
+                font-family: Stem-Medium;
+                font-size: 18px;
+            }
+        }
+
+        li:hover{
+            scale: 1.1;
+            cursor: pointer;
+        }
+    }
+}
+
+.prices{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 0;
+}

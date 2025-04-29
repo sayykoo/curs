@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CarServiceRequest, CustomUser, UserReviews, News, TeamMembers
+from .models import CarServiceRequest, CustomUser, UserReviews, News, TeamMembers, ServicesPrice
 from django.contrib.auth.admin import UserAdmin
 from .forms import SignUpForm
 from django.utils.html import format_html
@@ -46,4 +46,6 @@ admin.site.register(CarServiceRequest, CarServiceRequestAdmin)
 admin.site.register(UserReviews)
 admin.site.register(News)
 admin.site.register(TeamMembers)
+admin.site.register(ServicesPrice)
+
 

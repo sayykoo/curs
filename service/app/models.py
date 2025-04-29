@@ -20,6 +20,17 @@ class CustomUser(AbstractUser):
         return self.username
     
 
+class ServicesPrice(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Название работы')
+    price = models.CharField(max_length=100, verbose_name='Цена')
+    
+    class Meta:
+        verbose_name = 'Услуга'
+        verbose_name_plural = 'Услуги'
+
+    def __str__(self):
+        return self.title
+
 class TeamMembers(models.Model):
     name = models.CharField(max_length=50, verbose_name='Имя')
     type = models.CharField(max_length=50, verbose_name='Тип работы')

@@ -137,3 +137,18 @@ header {
         }
     }
 }
+
+@media (max-width: 768px) {
+    header .header__items nav{
+        display: none;
+    }
+    header .header__items .number{
+        display: none;
+    }
+    header .header__items .number{
+        display: none;
+    }
+    header .logotype a img{
+        width: 150px;
+    }
+}

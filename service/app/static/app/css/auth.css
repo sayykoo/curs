@@ -90,3 +90,25 @@ ul{
 #id_avatar{
     border: none;
 }
+
+@media (max-width: 768px) {
+
+    main .auth__form{
+        align-items: center;
+        justify-content: center;
+        padding: 100px 15px 50px 20px;
+    }
+
+    main .auth__form .btn-google{
+        display: none;
+    }
+
+    main .auth__form form input{
+        width: 250px;
+    }
+
+    main .auth__form .our{
+        font-size: 14px;
+        gap: 25px;
+    }
+}

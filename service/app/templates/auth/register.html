@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
 <link rel="stylesheet" href="{% static 'app/css/auth.css' %}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 {% block content %}
 <main>
@@ -29,7 +30,7 @@
         <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-google">
             Войти через Google
         </a>
-        <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a></p>
+        <p class="our">Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a></p>
     </div>
 
 </main>

@@ -2,10 +2,10 @@
 
 <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
 <link rel="stylesheet" href="{% static 'app/css/auth.css' %}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 {% include "app/header.html" %}
 
-{% block content %}
 <main>
     <div class="auth__form">
         <h2>Вход</h2>
@@ -14,8 +14,6 @@
             {{ form.as_p }}
             <button type="submit">Войти</button>
         </form>
-        <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+        <p class="our">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
     </div>
 </main>
-
-{% endblock %}

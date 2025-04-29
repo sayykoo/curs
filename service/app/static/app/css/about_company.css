@@ -70,3 +70,23 @@ main {
         font-family: Stem-Medium;
     }
 }
+
+
+@media screen and (max-width: 768px){
+    main .about__company_section .information strong, h1{
+        text-align: center;
+    }
+
+    main .about__company_section .about__company_items h2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    main .about__company_section .about__company_items .about__company_list_item{
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+    }
+}
